@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── HUMAN BUBBLE ATLAS — Design System ─── */
+/* Art direction: "Calm analytical atlas"
+   Deep space-blue surfaces, teal+violet accents,
+   typeset in Geist (display) + Satoshi (body) */
+
+@layer base {
+  :root {
+    --background: 225 20% 8%;
+    --foreground: 210 15% 88%;
+    --card: 225 18% 11%;
+    --card-foreground: 210 15% 88%;
+    --popover: 225 18% 11%;
+    --popover-foreground: 210 15% 88%;
+    --primary: 188 55% 45%;
+    --primary-foreground: 225 20% 8%;
+    --secondary: 225 15% 18%;
+    --secondary-foreground: 210 15% 75%;
+    --muted: 225 15% 15%;
+    --muted-foreground: 210 10% 55%;
+    --accent: 270 55% 60%;
+    --accent-foreground: 225 20% 8%;
+    --destructive: 320 57% 50%;
+    --destructive-foreground: 210 15% 88%;
+    --border: 225 15% 20%;
+    --input: 225 15% 18%;
+    --ring: 188 55% 45%;
+    --radius: 0.5rem;
+  }
+
+  /* Light mode */
+  .light {
+    --background: 45 24% 96%;
+    --foreground: 225 20% 12%;
+    --card: 45 25% 98%;
+    --card-foreground: 225 20% 12%;
+    --popover: 45 25% 98%;
+    --popover-foreground: 225 20% 12%;
+    --primary: 188 70% 28%;
+    --primary-foreground: 45 24% 96%;
+    --secondary: 225 12% 92%;
+    --secondary-foreground: 225 20% 25%;
+    --muted: 45 12% 92%;
+    --muted-foreground: 225 10% 45%;
+    --accent: 270 55% 50%;
+    --accent-foreground: 45 24% 96%;
+    --destructive: 320 57% 40%;
+    --destructive-foreground: 45 24% 96%;
+    --border: 225 12% 82%;
+    --input: 225 12% 90%;
+    --ring: 188 70% 28%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Satoshi', 'Inter', system-ui, sans-serif;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Cabinet Grotesk', 'Satoshi', system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  p, li {
+    text-wrap: pretty;
+    line-height: 1.6;
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ─── Custom scrollbar ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+
+/* ─── Slider customization ─── */
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: hsl(var(--border));
+  outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  cursor: pointer;
+  border: 2px solid hsl(var(--background));
+  box-shadow: 0 0 0 1px hsl(var(--primary) / 0.4);
+  transition: transform 150ms, box-shadow 150ms;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.2);
+}
+
+/* ─── Bubble animations ─── */
+@keyframes bubble-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.85; }
+}
+
+@keyframes float-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float-in {
+  animation: float-in 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ─── Tooltip override ─── */
+.bubble-tooltip {
+  pointer-events: none;
+  z-index: 100;
+}
